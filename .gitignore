@@ -2,3 +2,9 @@
 venv/
 tools/__pycache__/
 gui/__pycache__/
+goryou/__pycache__/
+mitama/__pycache__/
+explore/__pycache__/
+gameLib/__pycache__/
+build/
+dist/
