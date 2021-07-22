@@ -22,7 +22,7 @@ class Mood:
             self.read_config()
             Mood.__first_init = False
         a = random.randint(1, self.state)
-        logging.info("创建延迟参数，等级: %d", a)
+        logging.info("Create delay parameters，grade: %d", a)
         self.lastmood = Mood.mymood[a]
 
     def read_config(self):
@@ -31,7 +31,7 @@ class Mood:
             with open('delay.json', 'r') as f:
                 fileObject = f.read()
             jsObj = json.loads(fileObject)
-            logging.info('读取延迟配置文件成功')
+            logging.info('Đọc thành công tệp cấu hình trì hoãn')
             Mood.mymood = {
                 1: (jsObj['1'][0], jsObj['1'][1]),
                 2: (jsObj['2'][0], jsObj['2'][1]),
@@ -40,13 +40,13 @@ class Mood:
                 5: (jsObj['5'][0], jsObj['5'][1])}
         except FileNotFoundError:
             # 文件未找到
-            logging.info('使用默认延迟参数')
+            logging.info('Use default delay parameters')
             self.set_default()
         except:
             # 其他错误
             logging.warning('延迟配置文件错误，使用默认参数')
             self.set_default()
-        logging.info('延迟参数: '+str(Mood.mymood))
+        logging.info('Delay parameter: '+str(Mood.mymood))
 
     def set_default(self):
         '''
@@ -64,7 +64,7 @@ class Mood:
             self.lastime = time.time()
             a = random.randint(1, self.state)
             self.lastmood = Mood.mymood[a]
-            logging.info("修改延迟参数，等级 %d", a)
+            logging.info("Modify the delay parameter, level %d", a)
         return self.lastmood
 
     def moodsleep(self):

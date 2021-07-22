@@ -41,10 +41,10 @@ class ExploreDual():
             if yys.find_game_img('img/DUI.png', 1, (68, 242), (135, 306), thread=0.8):
                 self.driver = ExploreLeader(hwnd=hwnd, delay=True)
                 hwndlist.remove(hwnd)
-                logging.info('发现队长')
+                logging.info('Captain Discovery')
                 break
         self.passenger = ExplorePassenger(hwnd=hwndlist[0])
-        logging.info('发现乘客')
+        logging.info('Passengers found')
 
     def start(self):
         task1 = threading.Thread(target=self.driver.start)

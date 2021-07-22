@@ -48,7 +48,7 @@ class Fighter(GameScene):
                 # TansuoPos.InitPosWithClient__()
                 # YuhunPos.InitPosWithClient__()
         self.yys = GameControl(hwnd, quit_game_enable)
-        self.log.info('Bind the window successfully')
+        self.log.info('Window binding successfully')
         self.log.info(str(hwnd))
 
         # 激活窗口
@@ -68,14 +68,14 @@ class Fighter(GameScene):
         # 检测是否进入战斗
         self.log.info('Check whether to enter the battle')
         self.yys.wait_game_img('img\\ZI-DONG.png', self.max_win_time)
-        self.log.info('Has entered the battle')
+        self.log.info('Đã vào trận')
 
     def check_end(self):
         '''
         检测是否打完
             :return: 胜利页面返回0；奖励页面返回1
         '''
-        self.log.info('The test is whether the battle is over')
+        self.log.info('Bài kiểm tra là liệu trận chiến đã kết thúc chưa')
         start_time = time.time()
         myend = -1
         while time.time()-start_time <= self.max_win_time and self.run:
@@ -90,10 +90,10 @@ class Fighter(GameScene):
                 break
             time.sleep(0.5)
         if myend in [0, 3]:
-            self.log.info('Successful battle')
+            self.log.info('Trận chiến thành công')
             return 0
         elif myend in [1, 2]:
-            self.log.info('End of this round of battle')
+            self.log.info('Kết thúc vòng chiến này')
             return 1
 
     def check_times(self):
@@ -101,16 +101,16 @@ class Fighter(GameScene):
         监测游戏次数是否达到最大次数
         '''
         self.run_times = self.run_times + 1
-        self.log.info('Game is running'+str(self.run_times)+'次')
+        self.log.info('Trò chơi đang chạy'+str(self.run_times)+'lần')
         if(self.run_times == self.max_times):
             if(self.end_operation == 0):
-                self.log.warning('Close script (the number of times is full)...')
+                self.log.warning('Đóng tập lệnh (số lần đầy)...')
                 self.run = False
                 os._exit(0)
             elif(self.end_operation == 1):
-                self.log.warning('Close the game (the number is full)...')
+                self.log.warning('Đóng trò chơi (số lượng đã đầy)...')
                 self.yys.quit_game()
-                self.log.warning('Close script (the number of times is full)...')
+                self.log.warning('Đóng tập lệnh (số lần đầy)...')
                 self.run = False
                 os._exit(0)
 
@@ -124,7 +124,7 @@ class Fighter(GameScene):
         mypos = ut.secondposition()
         if state == 0:
             self.yys.mouse_click_bg(mypos)
-            self.log.info('Click to check out')
+            self.log.info('Bấm để kiểm tra')
             mood.moodsleep()
         start_time = time.time()
         while time.time()-start_time <= self.max_op_time and self.run:
@@ -140,7 +140,7 @@ class Fighter(GameScene):
 
             # 点击一次结算
             self.yys.mouse_click_bg(mypos)
-            self.log.info('Click to check out')
+            self.log.info('Bấm để kiểm tra')
             mood.moodsleep()
 
             # 错误纠正
@@ -148,7 +148,7 @@ class Fighter(GameScene):
                 'img/FA-SONG-XIAO-XI.png', 'img/ZHI-LIAO-LIANG.png')
             if max(maxVal) > 0.9:
                 self.yys.mouse_click_bg((35, 295), (140, 475))
-                self.log.info('Error correction')
+                self.log.info('Sửa lỗi')
                 mood.moodsleep()
                 continue
 
@@ -156,11 +156,11 @@ class Fighter(GameScene):
             maxVal, maxLoc = self.yys.find_multi_img(
                 'img/SHENG-LI.png', 'img/TIAO-DAN.png', 'img/JIN-BI.png', 'img/JIE-SU.png')
             if max(maxVal) < 0.9:
-                self.log.info('Settled successfully')
+                self.log.info('Đã giải quyết thành công')
                 return
 
-        self.log.warning('Click to check out failed!')
-        # 提醒玩家点击失败，并在5s后退出
+        self.log.warning('Nhấp để kiểm tra không thành công!')
+        # Nhắc người chơi không nhấp và thoát sau 5 giây
         self.yys.activate_window()
         time.sleep(5)
         self.yys.quit_game()
@@ -188,15 +188,15 @@ class Fighter(GameScene):
                     ((x1, y1), (x2, y2)), (134, 227, 96), 5)
                 # print('颜色位置', exp_pos)
                 if exp_pos != -1:
-                    self.log.info('Mark Shikigami success')
+                    self.log.info('Đánh dấu thức thần thành công')
                     return True
                 else:
-                    # 点击指定位置并等待下一轮
+                    # Bấm vào vị trí đã chỉ định và đợi vòng tiếp theo
                     self.yys.mouse_click_bg(*pos)
-                    self.log.info('Mark shikigami')
+                    self.log.info('Đánh dấu thức thần')
                     ut.mysleep(500)
 
-            self.log.warning('Mark Shikigami failure')
+            self.log.warning('Đánh dấu thất bại thức thần')
 
     def click_monster(self):
         # 点击怪物
@@ -218,14 +218,14 @@ class Fighter(GameScene):
         while time.time()-start_time <= self.max_op_time and self.run:
             # 点击指定位置
             self.yys.mouse_click_bg(pos, pos_end)
-            self.log.info('Click on ' + tag)
+            self.log.info('Bấm vào ' + tag)
             ut.mysleep(step_time*1000)
 
             result = self.yys.find_game_img(img_path)
             if not appear:
                 result = not result
             if result:
-                self.log.info('Click on ' + tag + ' successfully')
+                self.log.info('Bấm vào ' + tag + ' thành công')
                 return True
 
         # 提醒玩家点击失败，并在5s后退出
@@ -246,12 +246,12 @@ class Fighter(GameScene):
         while time.time()-start_time <= self.max_op_time and self.run:
             # 点击指定位置
             self.yys.mouse_click_bg(pos, pos_end)
-            self.log.info('Click on ' + tag)
+            self.log.info('Bấm vào ' + tag)
             ut.mysleep(step_time*1000)
 
             maxval, _ = self.yys.find_multi_img(*img_path)
             if max(maxval) > 0.9:
-                self.log.info('Click on ' + tag + ' successfully')
+                self.log.info('Bấm vào ' + tag + ' thành công')
                 return True
 
         # 提醒玩家点击失败，并在5s后退出
@@ -272,35 +272,35 @@ class Fighter(GameScene):
         # 在指定时间内反复监测画面并点击
         start_time = time.time()
         while time.time()-start_time <= self.max_op_time and self.run:
-            # 点击指定位置并等待下一轮
+            # Bấm vào vị trí đã chỉ định và đợi vòng tiếp theo
             self.yys.mouse_click_bg(pos, pos_end)
-            self.log.info('Click on ' + tag)
+            self.log.info('Bấm vào ' + tag)
             ut.mysleep(step_time*1000)
 
             result = self.yys.find_game_img_knn(img_path, thread=thread)
             if not appear:
                 result = not result
             if result:
-                self.log.info('Click on ' + tag + ' successfully')
+                self.log.info('Bấm vào ' + tag + ' thành công')
                 return True
 
-        # 提醒玩家点击失败，并在5s后退出
+        # Nhắc người chơi không nhấp và thoát sau 5 giây
         self.click_failed(tag)
 
     def click_failed(self, tag):
         # 提醒玩家点击失败，并在5s后退出
-        self.log.warning('Click on ' + tag + ' failure!')
+        self.log.warning('Bấm vào ' + tag + ' thất bại!')
         self.yys.activate_window()
         time.sleep(5)
         self.yys.quit_game()
 
     def activate(self):
-        self.log.warning('Startup script')
+        self.log.warning('Tập lệnh khởi động')
         self.run = True
         self.yys.run = True
 
     def deactivate(self):
-        self.log.warning('Manually stop the script')
+        self.log.warning('Dừng tập lệnh theo cách thủ công')
         self.run = False
         self.yys.run = False
 
@@ -314,4 +314,4 @@ class Fighter(GameScene):
         y0 = random.randint(436, 486)
         y1 = random.randint(436, 486)
         self.yys.mouse_drag_bg((x0, y0), (x1, y1))
-        self.log.info('Horizontal sliding interface')
+        self.log.info('Giao diện trượt ngang')

@@ -15,13 +15,14 @@ class ExploreFight(Fighter):
             :param hwnd=0: 指定窗口句柄：0-否；其他-窗口句柄
             :param mode=0: 狗粮模式：0-正常模式，1-组队后排狗粮
         '''
+        logging.info(hwnd)
         Fighter.__init__(self, hwnd=hwnd)
 
         # 读取配置文件
         conf = configparser.ConfigParser()
         conf.read('conf.ini')
 
-        # 读取狗粮配置
+        # Đọc cấu hình food
         if mode == 0:
             raw_gouliang = conf.get('explore', 'gouliang')
         else:
@@ -62,7 +63,7 @@ class ExploreFight(Fighter):
         if self.gouliang == None:
             return
 
-        # 狗粮经验判断
+        # Đánh giá kinh nghiệm food
         gouliang = []
         if 1 in self.gouliang:
             gouliang.append(self.yys.find_game_img(
@@ -80,16 +81,16 @@ class ExploreFight(Fighter):
             gouliang.append(self.yys.find_game_img(
                 'img\\MAN2.png', 1, *TansuoPos.gouliang_rightback, 1, 0.8))
 
-        # 如果都没满则退出
+        # Thoát nếu không đầy
         res = False
         for item in gouliang:
             res = res or bool(item)
         if not res:
             return
 
-        # 开始换狗粮
+        # Bắt đầu thay đổi food
         while self.run:
-            # 点击狗粮位置
+            # Nhấp vào vị trí của food
             self.yys.mouse_click_bg(*TansuoPos.change_monster)
             if self.yys.wait_game_img('img\\QUAN-BU.png', 3, False):
                 break
@@ -189,7 +190,7 @@ class ExploreFight(Fighter):
             mood1.moodsleep()
             # 查看是否进入探索界面
             self.yys.wait_game_img('img\\YING-BING.png')
-            self.log.info('进入探索页面')
+            self.log.info('Vào trang khám phá')
 
             # 寻找经验怪，未找到则寻找boss，再未找到则退出
             fight_pos = self.find_exp_moster()
@@ -199,25 +200,26 @@ class ExploreFight(Fighter):
                     fight_pos = self.find_boss()
                     boss = True
                     if fight_pos == -1:
-                        self.log.info('未找到经验怪和boss')
+                        self.log.info('Không tìm thấy quái vật và boss kinh nghiệm')
                         return -2
                 else:
-                    self.log.info('未找到经验怪')
+                    self.log.info('Không tìm thấy quái vật kinh nghiệm')
                     return -1
 
             # 攻击怪
-            self.click_until('怪', 'img/YING-BING.png', fight_pos, step_time=0.3, appear=False)
-            self.log.info('已进入战斗')
+            self.click_until('Fight', 'img/YING-BING.png', fight_pos, step_time=0.3, appear=False)
+            self.log.info('Đã vào trận')
 
-            # 等待式神准备
+            # Chờ thức thần chuẩn bị
             self.yys.wait_game_img_knn('img\\ZHUN-BEI.png', thread=30)
-            self.log.info('式神准备完成')
+
+            self.log.info('Thức thần đã sẵn sàng')
 
             # 检查狗粮经验
             self.check_exp_full()
 
             # 点击准备，直到进入战斗
-            self.click_until_knn('准备按钮', 'img/ZHUN-BEI.png', *
+            self.click_until_knn('Nút sẵn sàng', 'img/ZHUN-BEI.png', *
                             TansuoPos.ready_btn, mood1.get1mood()/1000, False, 30)
 
             # 检查是否打完
@@ -233,15 +235,18 @@ class ExploreFight(Fighter):
             else:
                 return 1
 
+    def check_reward(self):
+        self.log.info('Get reward')
+
     def start(self):
         '''单人探索主循环'''
         mood1 = ut.Mood(3)
         mood2 = ut.Mood(3)
         while self.run:
-            # 进入探索内
+            # Tham gia khám phá
             self.switch_to_scene(4)
 
-            # 开始打怪
+            # Bắt đầu chiến đấu với quái vật
             i = 0
             while self.run:
                 if i >= 4:
@@ -252,14 +257,15 @@ class ExploreFight(Fighter):
                 elif result == 2:
                     break
                 else:
-                    self.log.info('移动至下一个场景')
+                    self.log.info('Chuyển sang cảnh tiếp theo')
                     self.next_scene()
                     i += 1
 
             # 退出探索
             self.switch_to_scene(3)
-            self.log.info('结束本轮探索')
+            self.log.info('Kết thúc vòng khám phá này')
             time.sleep(0.5)
+            self.check_reward()
 
             # 检查游戏次数
             self.check_times()

@@ -24,10 +24,10 @@ def match_img_knn(queryImage, trainingImage, thread=0):
 
     s = sorted(good, key=lambda x: x.distance)
     '''
-    drawParams=dict(matchColor=(0,0,255),singlePointColor=(255,0,0),matchesMask=matchesMask,flags=0) #给特征点和匹配的线定义颜色
-    resultimage=cv2.drawMatchesKnn(queryImage,kp1,trainingImage,kp2,matches,None,**drawParams) #画出匹配的结果
-    cv2.imshow('res',resultimage)
-    cv2.waitKey(0)
+    drawParams=dict(matchColor=(0,0,255),singlePointColor=(255,0,0),matchesMask=matchesMask,flags=0) #define colors for feature points and matching lines
+     resultimage=cv2.drawMatchesKnn(queryImage,kp1,trainingImage,kp2,matches,None,**drawParams) #Draw the matching results
+     cv2.imshow('res',resultimage)
+     cv2.waitKey(0)
     '''
     #print(len(good))
     if len(good) > thread:

@@ -8,11 +8,11 @@ from tkinter import ttk
 class Application(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
-        self.url = 'http://www.onmyojibot.com'
-        self.source_url = 'https://github.com/AcademicDog/onmyoji_bot'
+        self.url = 'https://minhkhanb.github.io/'
+        self.source_url = 'https://github.com/minhkhanb'
         self.master = master
-        self.master.iconbitmap('img/icon/OnmyojiBot.ico')
-        self.master.wm_title('OnmyojiBot')
+        self.master.iconbitmap('img/icon/favicon.ico')
+        self.master.wm_title('Onmyoji Tools')
         self.pack()
 
         # 初始化参数
@@ -66,6 +66,7 @@ class Application(tk.Frame):
         self.create_frame1()
         self.create_frame2()
         self.create_frame3()
+        self.create_frame4()
 
         # 创建次数菜单
         self.create_times()
@@ -74,10 +75,24 @@ class Application(tk.Frame):
         self.create_advance()
 
         # 创建日志
-        self.create_log()
+        #self.create_log()
 
         # 创建操作按钮
-        self.create_command()
+        #self.create_command()
+        #self.create_beautiful_ui()
+
+    def create_beautiful_ui(self):
+        canvas = tk.Canvas(self, width=320, height=200)
+        canvas.grid(columnspan=3, rowspan=3)
+        instructions = tk.Label(self, text='Make Gaming Better Every Day!',
+                                font='Arial 14')
+        instructions.grid(columnspan=3, column=0, row=1)
+        # Hello button
+        startText = tk.StringVar()
+        btnStart = tk.Button(self, textvariable=startText, font='Raleway', bg='#20bebe', fg='white', width=10, height=1)
+        startText.set('Start')
+        btnStart.grid(column=1, row=2)
+
 
     def create_menubar(self):
         '''
@@ -87,36 +102,32 @@ class Application(tk.Frame):
 
         # 创建菜单项
         menu1 = tk.Menu(menubar, tearoff=0)
-        menubar.add_cascade(label="文件", menu=menu1)
-        menu1.add_command(label='启动', command=self.start_onmyoji)
-        menu1.add_command(label='退出', command=self.stop_onmyoji)
+        menubar.add_cascade(label="File", menu=menu1)
+        menu1.add_command(label='Start', command=self.start_onmyoji)
+        menu1.add_command(label='Exit', command=self.stop_onmyoji)
 
         # 高级选项
         menu2 = tk.Menu(menubar, tearoff=0)
-        menubar.add_cascade(label="高级", menu=menu2)
-        menu2.add_command(label='自定义延迟', command=self.delay_dialog)
+        menubar.add_cascade(label="Advance", menu=menu2)
+        menu2.add_command(label='Delay setting', command=self.delay_dialog)
 
         # 帮助
         menu3 = tk.Menu(menubar, tearoff=0)
-        menubar.add_cascade(label='帮助', menu=menu3)
-        menu3.add_command(label='关于', command=self.say_hi)
-        menu3.add_command(label='使用说明', command=self.help)
+        menubar.add_cascade(label='Help', menu=menu3)
+        menu3.add_command(label='About', command=self.say_hi)
+        menu3.add_command(label='Guide', command=self.help)
         menu3.add_separator()
-        menu3.add_command(label='捐赠', command=self.donate)
+        menu3.add_command(label='Donation', command=self.donate)
 
         # 设置
         self.master.config(menu=menubar)
 
     def create_title(self):
-        # 标题
-        tk.Label(self.master, text='Onmyoji Tool',
-                 font='Helvetica 20 bold').pack(anchor=tk.W)
-        tk.Label(
-            self.master, text=self.url).pack(anchor=tk.W)
-
         # 主页面
-        self.main_frame1 = tk.Frame(self.master)
-        self.main_frame2 = tk.Frame(self.master)
+        self.main_frame0 = tk.Frame(self.master, padx=10, pady=10)
+        self.main_frame1 = tk.Frame(self.master, padx=10, pady=10)
+        self.main_frame2 = tk.Frame(self.master, padx=10, pady=10)
+        self.main_frame0.pack(fill=tk.BOTH, expand=True)
         self.main_frame1.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         self.main_frame2.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
 
@@ -124,9 +135,10 @@ class Application(tk.Frame):
         '''
         创建客户端选项
         '''
-        self.client = ttk.Combobox(self.main_frame2)
-        self.client['value'] = ('Steam', 'Nox 1136*640 (100%)')
-        self.client.pack(fill=tk.X, padx=2, pady=2)
+        tk.Label(self.main_frame0, text='Choose Emulator', width=14).pack(side=tk.LEFT)
+        self.client = ttk.Combobox(self.main_frame0, width=10)
+        self.client['value'] = ('Steam', 'Emulator 1136 x 640')
+        self.client.pack(fill=tk.X, padx=0, pady=0)
         self.client.current(0)
         self.client.config(state='readonly')
 
@@ -138,21 +150,24 @@ class Application(tk.Frame):
 
         # 创建选项卡1---御魂
         self.frame0 = tk.Frame(self.section)
-        self.section.add(self.frame0, text='Soul')
+        self.section.add(self.frame0, text='Souls')
 
         # 创建选项卡2---御灵
         self.frame1 = tk.Frame(self.section)
-        self.section.add(self.frame1, text='Evo')
+        self.section.add(self.frame1, text='Evo Materials')
 
         # 创建选项卡3---探索
         self.frame2 = tk.Frame(self.section, padx=5, pady=5)
-        self.section.add(self.frame2, text='Expolre')
+        self.section.add(self.frame2, text='Explore')
 
         # 创建选项卡4---关于
         self.frame3 = tk.Frame(self.section)
-        self.section.add(self.frame3, text='About')
+        self.section.add(self.frame3, text='Information')
 
         self.section.pack(fill=tk.BOTH, expand=True)
+
+        self.frame4 = tk.Frame(self.section)
+        self.section.add(self.frame4, text='Configuration')
 
     def create_frame0(self):
         '''
@@ -163,21 +178,21 @@ class Application(tk.Frame):
         mode.pack(padx=5, pady=5, fill=tk.BOTH)
         self.run_mode = tk.IntVar()
         self.run_mode.set(0)
-        tk.Radiobutton(mode, text='Single Player', variable=self.run_mode,
+        tk.Radiobutton(mode, text='Single brush', variable=self.run_mode,
                        value=0).grid(row=0, column=0, sticky=tk.W)
-        tk.Radiobutton(mode, text='Single Leader', variable=self.run_mode,
+        tk.Radiobutton(mode, text='Single driver', variable=self.run_mode,
                        value=1).grid(row=0, column=1, sticky=tk.W)
-        tk.Radiobutton(mode, text='Single Participants', variable=self.run_mode,
+        tk.Radiobutton(mode, text='Single passenger', variable=self.run_mode,
                        value=2).grid(row=1, column=0, sticky=tk.W)
-        tk.Radiobutton(mode, text='Dual Player', variable=self.run_mode,
+        tk.Radiobutton(mode, text='Double open', variable=self.run_mode,
                        value=3).grid(row=1, column=1, sticky=tk.W)
 
         # 游戏副本
-        submode = tk.LabelFrame(self.frame0, text='Battle(Lock Lineup)')
+        submode = tk.LabelFrame(self.frame0, text='Copy (please lock the lineup)')
         submode.pack(padx=5, pady=5, fill=tk.BOTH, expand=True)
         tk.Radiobutton(submode, text='Orochi', variable=self.run_submode,
                        value=0).grid(row=0, column=0, sticky=tk.W)
-        tk.Radiobutton(submode, text='Three Fire', variable=self.run_submode,
+        tk.Radiobutton(submode, text='Industry Fire', variable=self.run_submode,
                        value=1).grid(row=0, column=1, sticky=tk.W)
         tk.Radiobutton(submode, text='Himiko', variable=self.run_submode,
                        value=2).grid(row=1, column=0, sticky=tk.W)
@@ -185,10 +200,10 @@ class Application(tk.Frame):
         # 标记式神
         mitama_mark = tk.Frame(self.frame0, padx=5, pady=5)
         mitama_mark.pack(fill=tk.X, expand=True)
-        tk.Label(mitama_mark, text='Marked Shiki:').pack(side=tk.LEFT)
+        tk.Label(mitama_mark, text='Mark oneself way god:').pack(side=tk.LEFT)
         self.mitama_team_mark = ttk.Combobox(mitama_mark, width=10)
         self.mitama_team_mark['value'] = (
-            'UnMarked', 'ST', 'SD', 'RD', '4th', '5th')
+            'Unmarked', 'First shikigami', 'Second shikigami', 'Third shikigami', '4th shikigami', 'Fifth shikigami')
         self.mitama_team_mark.pack(fill=tk.X, expand=True, padx=2)
         self.mitama_team_mark.current(0)
         self.mitama_team_mark.config(state='readonly')
@@ -197,9 +212,9 @@ class Application(tk.Frame):
         '''
         御灵参数
         '''
-        text = tk.Text(self.frame1, height=5, width=25)
+        text = tk.Text(self.frame1, height=5, width=20)
         text.pack(padx=5, pady=5, expand=True, fill=tk.BOTH, anchor=tk.NW)
-        text.insert(tk.END, 'Choose the Soul you want to play and the number of layers, and click the Start Button。')
+        text.insert(tk.END, 'Choose the Evo Materials you want to play and the number of layers, and click the start button.。')
         text.config(state=tk.DISABLED)
 
     def create_frame2(self):
@@ -209,28 +224,28 @@ class Application(tk.Frame):
         # 副本选择
         submode = tk.LabelFrame(self.frame2, text='Mode')
         submode.pack(fill=tk.BOTH, expand=True)
-        tk.Radiobutton(submode, text='Single Player', variable=self.explore_mode,
+        tk.Radiobutton(submode, text='Single brush', variable=self.explore_mode,
                        value=0, command=lambda: self.gouliang_state(1)).grid(row=0, column=0, sticky=tk.W)
-        tk.Radiobutton(submode, text='Single Leader', variable=self.explore_mode,
+        tk.Radiobutton(submode, text='Single captain', variable=self.explore_mode,
                        value=1, command=lambda: self.gouliang_state(2)).grid(row=0, column=1, sticky=tk.W)
-        tk.Radiobutton(submode, text='Single Partiants', variable=self.explore_mode,
+        tk.Radiobutton(submode, text='Single player', variable=self.explore_mode,
                        value=2, command=lambda: self.gouliang_state(1)).grid(row=1, column=0, sticky=tk.W)
-        tk.Radiobutton(submode, text='Dual Player', variable=self.explore_mode,
+        tk.Radiobutton(submode, text='Desktop version double open', variable=self.explore_mode,
                        value=3, command=lambda: self.gouliang_state(3)).grid(row=1, column=1, sticky=tk.W)
 
         # 狗粮设置
-        food = tk.LabelFrame(self.frame2, text='Change Food (Do not lock lineup)')
+        food = tk.LabelFrame(self.frame2, text='Change farm food (do not lock the lineup)')
         food.pack(fill=tk.BOTH, expand=True)
         self.gouliang_l = tk.Checkbutton(
             food, text='Left', variable=self.gouliang_1)
         self.gouliang_l.grid(row=0, column=0)
         self.gouliang_m = tk.Checkbutton(
-            food, text='Center', variable=self.gouliang_2)
+            food, text='In', variable=self.gouliang_2)
         self.gouliang_m.grid(row=0, column=1)
         self.gouliang_r = tk.Checkbutton(
             food, text='Right', variable=self.gouliang_3)
         self.gouliang_r.grid(row=0, column=2)
-        tk.Label(food, text='Single / Team Player').grid(row=0, column=3, sticky=tk.W)
+        tk.Label(food, text='Single/team player').grid(row=0, column=3, sticky=tk.W)
 
         self.gouliang_lb = tk.Checkbutton(
             food, text='Left', variable=self.gouliang_4)
@@ -238,17 +253,17 @@ class Application(tk.Frame):
         self.gouliang_rb = tk.Checkbutton(
             food, text='Right', variable=self.gouliang_5)
         self.gouliang_rb.grid(row=1, column=2)
-        tk.Label(food, text='Team Leader').grid(row=1, column=3, sticky=tk.W)
+        tk.Label(food, text='team leader').grid(row=1, column=3, sticky=tk.W)
         self.gouliang_lb.config(state=tk.DISABLED)
         self.gouliang_rb.config(state=tk.DISABLED)
 
         # 换狗粮设置
-        tk.Checkbutton(self.frame2, text='Change food drag and drop progress bar, progress:',
+        tk.Checkbutton(self.frame2, text='Change farm food drag and drop god progress bar, progress:',
                        variable=self.slide_shikigami).pack(anchor=tk.W)
         tk.Scale(self.frame2, from_=0, to=100, orient=tk.HORIZONTAL, showvalue=0,
                  variable=self.slide_shikigami_progress).pack(fill=tk.X)
         self.cmb = ttk.Combobox(self.frame2)
-        self.cmb['value'] = ('Daruma', 'N shiki', 'R Shiki')
+        self.cmb['value'] = ('Change Daruma', 'Replace N shiki', 'Replace R shiki')
         self.cmb.pack(fill=tk.X, padx=2)
         self.cmb.current(self.change_shikigami)
         self.cmb.config(state='readonly')
@@ -261,17 +276,20 @@ class Application(tk.Frame):
         '''
         关于
         '''
-        text = tk.Text(self.frame3, height=5, width=25)
+        text = tk.Text(self.frame3, height=5, width=20)
         text.pack(expand=True, fill=tk.BOTH)
         text.insert(
-            tk.END, 'Website：%s\n\n' % (self.url))
+            tk.END, 'website：%s\n\n' % (self.url))
         text.insert(
             tk.END, 'Source code：%s\n\n' % (self.source_url))
         text.insert(
-            tk.END, 'Q&A：592055060\n\n')
-        text.insert(
             tk.END, 'If you think the script action is too slow, please go to the advanced menu to customize the delay。')
         text.config(state=tk.DISABLED)
+
+    def create_frame4(self):
+        self.create_log_in_section()
+
+
 
     def create_times(self):
         '''
@@ -293,7 +311,7 @@ class Application(tk.Frame):
         '''
         高级菜单
         '''
-        advance = tk.LabelFrame(self.main_frame1, text='Advanced Options')
+        advance = tk.LabelFrame(self.main_frame1, text='Advanced Options', padx=5, pady=5)
         advance.pack(padx=5, pady=5, fill=tk.X, side=tk.BOTTOM)
         tk.Checkbutton(advance, text='Debug mode',
                        variable=self.debug_enable).pack(anchor=tk.W)
@@ -308,12 +326,27 @@ class Application(tk.Frame):
         tk.Entry(frame, textvariable=self.max_op_time,
                  width=5).grid(row=1, column=1)
 
+        tk.Button(advance, text='Start',
+                  command=self.start_onmyoji, bg='#49c5b6', fg='#fff', width=24, height=2).pack(side=tk.LEFT)
+        tk.Button(advance, text='Exit',
+                  command=self.stop_onmyoji, bg='#49c5b6', fg='#fff', width=24, height=2).pack(side=tk.RIGHT)
+
     def create_log(self):
         '''
         参数显示
         '''
         tk.Label(self.main_frame2, text='Operating parameters:').pack(anchor=tk.W)
-        self.params = tk.Text(self.main_frame2, height=20, width=28)
+        self.params = tk.Text(self.main_frame2, height=20, width=20)
+        self.params.pack(anchor=tk.NW, fill=tk.BOTH,
+                         padx=5, pady=5, expand=True)
+        self.params.config(state=tk.DISABLED)
+
+    def create_log_in_section(self):
+        '''
+        参数显示
+        '''
+        tk.Label(self.frame4, text='Operating parameters:').pack(anchor=tk.W)
+        self.params = tk.Text(self.frame4, height=5, width=20)
         self.params.pack(anchor=tk.NW, fill=tk.BOTH,
                          padx=5, pady=5, expand=True)
         self.params.config(state=tk.DISABLED)
@@ -373,7 +406,7 @@ class Application(tk.Frame):
         测试
         '''
         tk.messagebox.showinfo(
-            "Onmyoji Tool", 'Website：%s\n\nSource code：%s\n\nQ&A：592055060' % (self.url, self.source_url))
+            "Onmyoji", 'website：%s\n\nSource code：%s\n\nExchange Q group：592055060' % (self.url, self.source_url))
 
     def delay_dialog(self):
         pw = DelayDialog(self)
@@ -393,7 +426,7 @@ class Application(tk.Frame):
         捐赠
         '''
         Q = tk.messagebox.askyesno(
-            "Donate", 'Do what you can, 1 point is enough. \n\nGo to donate？')
+            "Donate", 'Do what you can, 1 point is enough。\n\nGo to donate？')
         if Q:
             webbrowser.open('https://doc.onmyojibot.com/zh/latest/donate.html')
 
@@ -473,7 +506,7 @@ class DelayDialog(tk.Toplevel):
         tk.Label(row1, text='Delay mechanism：').pack(anchor=tk.W)
         text = tk.Text(row1, height=11, width=40)
         text.pack(expand=True, fill=tk.BOTH)
-        text.insert(tk.END, '1- A total of 5 levels of delay，The script randomly selects one of the 1-5 delays as the main delay，\
+        text.insert(tk.END, '1- A total of 5 delays, the script randomly selects one level from 1-5 delays as the main delay, \
 At the same time, one of the 1-3 delays is selected as the secondary delay. Multiply the random coefficient on this basis。\n\n')
         text.insert(tk.END, '2- Refresh the selection every 5 minutes, the calculation unit is milliseconds。\n\n')
         text.insert(tk.END, '3- The main delay is used for the delay of general operations such as screenshots and image recognition, and the secondary delay is mainly used for settlement。\n\n')

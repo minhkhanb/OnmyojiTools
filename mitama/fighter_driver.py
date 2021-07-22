@@ -27,8 +27,8 @@ class DriverFighter(Fighter):
         while self.run:
             # 司机点击开始战斗，需要锁定御魂阵容
             mood1.moodsleep()
-            self.log.info('Driver: 点击开始战斗按钮')
-            self.click_until('开始战斗按钮', 'img\\KAI-SHI-ZHAN-DOU.png', *
+            self.log.info('Driver: Nhấp vào nút bắt đầu trận chiến')
+            self.click_until('Nút bắt đầu chiến đấu', 'img\\KAI-SHI-ZHAN-DOU.png', *
                              YuhunPos.kaishizhandou_btn, mood2.get1mood()/1000, False)
             
             # 检测是否进入战斗
@@ -47,8 +47,8 @@ class DriverFighter(Fighter):
             # 在战斗结算页面
             self.get_reward(mood3, state)
 
-            # 等待下一轮
-            self.log.info('Driver: 等待下一轮')
+            # Chờ đợi vòng tiếp theo
+            self.log.info('Driver: Chờ đợi vòng tiếp theo')
             start_time = time.time()
             while time.time() - start_time <= 20 and self.run:
                 if(self.yys.wait_game_img('img\\KAI-SHI-ZHAN-DOU.png', 1, False)):

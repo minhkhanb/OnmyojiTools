@@ -1,49 +1,124 @@
-# 欢迎
-
-[![GitHub release](https://img.shields.io/github/release/academicdog/onmyoji_bot)](https://github.com/AcademicDog/onmyoji_bot/releases) ![GitHub top language](https://img.shields.io/github/languages/top/academicdog/onmyoji_bot) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/academicdog/onmyoji_bot)  ![GitHub repo size](https://img.shields.io/github/repo-size/academicdog/onmyoji_bot)    ![GitHub](https://img.shields.io/github/license/academicdog/onmyoji_bot)   ![platforms](https://img.shields.io/badge/platform-win32|win64-brightgreen.svg) [![GitHub issues](https://img.shields.io/github/issues/academicdog/onmyoji_bot.svg)](https://github.com/academicdog/onmyoji_bot/issues) [![GitHub closed issues](https://img.shields.io/github/issues-closed/academicdog/onmyoji_bot.svg)](https://github.com/academicdog/onmyoji_bot/issues?q=is:issue+is:closed)  ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/academicdog/onmyoji_bot)  ![GitHub contributors](https://img.shields.io/github/contributors/academicdog/onmyoji_bot.svg)
-
 <img align="right" width="300" src="https://raw.githubusercontent.com/AcademicDog/myresource/master/usage.png" alt="copy URL to clipboard" />
 
-本工具用于阴阳师代肝，为各位阴阳师大佬养老护肝所用。
+This project forks to [https://github.com/AcademicDog/onmyoji_bot/](https://github.com/AcademicDog/onmyoji_bot/) and makes the following changes:
 
-目前已开通项目网站，请访问🌍[此地址](https://academicdog.github.io/onmyoji_bot/)获取最新信息。
+* Added packaging related configuration
+* Added compatibility of virtual environment
+* New features
 
-同时请访问🌍[此地址](https://doc.onmyojibot.com/zh/latest/)查看用法。
 
-# 紧急通知
+### Features
 
-```diff
-+ 目前纯桌面版已经不太安全，已收到多个封号通知(正在统计，大部分人用的纯桌面版），如果实在要用，请至少带上沙盒或模拟器，用法见说明3.4和5.1章。
-- 目前纯桌面版已经不太安全，已收到多个封号通知(正在统计，大部分人用的纯桌面版），如果实在要用，请至少带上沙盒或模拟器，用法见说明3.4和5.1章。
-```
+-Yuhun
+  -Single player
+  -As a driver, team up with Yuhun and automatically invite
+  -Team up as a passenger and automatically accept the invitation
+  -Double open Yuhun
+-The original fire
+  -Automatically brush greed, hatred, and idiot
+-Yuling
+  -Automatically refresh Yuling
+-Explore
+  -Complete exploration, identify experience monsters, support automatic change of dog food
+-Other
+  -During the battle, the script will automatically reject all invitations to reward seals.
+  -If there is no operation in the 60s program (card machine, stamina, etc.), it will be deemed as exhausted. In order to protect the bonus, YYS will be automatically closed.
+  -This script only uses the functions of screen color finding and mouse background clicking, completely simulating the behavior of human players, without using any memory read and write functions. A uniformly distributed random time drift and random coordinate drift are added to sensitive locations. **But there may still be usage risks**.
 
-# 特别感谢
+### Use environment
 
-特别感谢society765在本项目中给与的启发，本项目在其[工作基础](https://github.com/society765/yys-auto-yuhun)上修改完成。
+> Onmyoji PC version client, default resolution (1136x640)
+>
+> Windows 10 and Windows 7, screen (1920x1080), display setting 100%
+>
+> To run the source code, Python3 32-bit is required
+* * *
 
-同时感谢sup817ch的图像识别思路，本项目game_ctl模块基于其[工作基础](https://github.com/sup817ch/AutoOnmyoji)。
+# Instructions
 
-感谢壁咚咚咚咚咚、Tree.提供的技术指导，感谢Abc为本程序提供了应用图标。
+### Single player brush Yuhun/Yeyuanhuo/Yuling
 
-感谢以下人员为测试工作做出的努力：鼠白小验实，忒修斯之旅，Garry，DD斩首, 暖。
+1. Open this tool and switch to the Yuhun tab;
 
-# 注意事项
+1. In the game, enter the main interface of Yuhun/Yeyuanhuo/Yu Ling (the page with the "challenge" button), please prepare the shikigami in advance and **lock the lineup**;
 
-环境：python 3.7, 32 bit；yys PC端 默认分辨率 (1136x640)；yys MuMu模拟器 分辨率（1136x640）；win 10系统，屏幕(1920x1080)。
+1. Click the "Start" button of this tool.
 
-1.  窗口现在可以完全后台，可以被遮挡，但是**不能最小化**。
+### Team up to brush the soul
 
-1.  游戏精细画质，不要开启游戏中的“模型描边”。
+1. Open this tool, switch to the Yuhun tab, and select "Single Driver" or "Single Passenger" according to your own situation;
 
-1.  当使用高分辨率屏幕时，在阴阳师客户端程序兼容性选项里，不要勾选“替代高DPI缩放行为”，这个选项应该是默认不勾选的。
+1. To enter the team page in the game, please prepare the shikigami in advance and **lock the lineup**;
 
-1.  如果不想安装运行环境，可以访问下载最新已[编译](https://github.com/AcademicDog/onmyoji_bot/releases)版本，该版本有图形界面，同时注意.exe文件和/img文件夹应该放在同一目录后再运行。
+1. Click the "Start" button of this tool.
 
-# 更新说明
-更新日志请点击[这里](https://github.com/AcademicDog/onmyoji_bot/blob/master/CHANGELOG.md)
+### Single player exploration
 
-# 协议 (License)
+1. Open this tool and switch to the Explore tab;
 
-该源代码使用了 [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html) 开源协议。
+1. Put the dog food captain in the middle of the Onmyoji in the game in advance, and **cancel the locked lineup**;
 
-This project is licensed under the [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html) license.
+1. Click on the chapter to be explored in the game (that is, the page with the "Explore" button);
+
+1. Click the "Start" button of this tool.
+
+* * *
+
+# Precautions
+
+1. Requires Windows 10 or Windows 7, screen (1920x1080), display setting 100%".
+
+1. When using Windows 7 system, you need to adjust the screen settings of the system: set the theme to the ugliest and most frustrating one. In Windows 10 system, there is no need to adjust the system screen settings.
+
+1. You need to turn off the computer's automatic screen rest/hibernation.
+
+1. The window can now be completely background and can be obscured, but **cannot be minimized**.
+
+1. Don't turn on the "model stroke" in the game.
+
+1. Do not move the game window.
+
+1. When using a high-resolution screen, in the Onmyoji client program compatibility option, do not check "Alternate high-DPI scaling behavior", this option should be unchecked by default.
+
+1. The exe file may be quarantined by anti-virus software. If it is quarantined, it needs to be restored and added to the trust zone.
+
+1. When running the script in the command line mode, do not left-click on the command line to avoid selecting the text, which may cause the process to pause and cause other problems. If you accidentally pause, press the space to continue the script. (You can also turn off the quick edit mode of the command line window in the window properties panel to avoid accidental interruption)
+
+1. Need to lock the lineup.
+
+1. To brush the soul, the homeowner needs to open the script in the room, and the passengers can open it in the room or in battle.
+
+1. Remember to close the script if you pause in the middle, because the script will close the game if the operation timeout.
+
+1. It is not recommended to use the brush to explore, the current recognition of the experience monster is not successful. When the N card is at full level, it will automatically change the N card by dragging the 40% progress bar of the N card and then dragging and dropping, so the user needs to close the shikigami fold. To brush a 2-star 1-level white egg, you need to turn on the God fold. There are currently bugs in brushing advanced white eggs, and there is a problem with automatic material change.
+
+1. When exploring dog food change, if you turn off the scroll card change and replace it with the first N card, be careful not to click "Like" on the N card, which will cause you to repeatedly change to a full-level dog food .
+
+1. The function of marking shikigami will mark the second shikigami on the left, and you need to close the shikigami skill animation
+
+1. If you don't want to install the operating environment, you can visit releases to download the latest [compiled] version, which has a graphical interface, and note that the .exe file and the /img folder should be placed in the same directory before running.
+
+# Run uncompiled script
+Install python3.7.0
+Installation dependencies
+~~~
+pip install -r requirements.txt
+~~~
+Run run.bat (if a virtual environment is used, edit the virtual environment path in runInVirtualEnv.bat, and then run bat)
+
+# Packing instructions
+Install pyinstaller, if you are using a virtual environment, you need to install and package it in the virtual environment
+~~~
+pip install pyinstaller
+~~~
+Package exe
+~~~
+pyinstaller -F -w ui.py
+~~~
+or
+~~~
+pyinstaller -F omj.py
+~~~
+
+Attention, there is a pit! ! !
+> If there is no error in the exe packaging process, but the packaged exe cannot be opened (for example, an error is reported: the volume where the file is located has been changed, and the opened file is no longer valid), you can close the antivirus software and package it again

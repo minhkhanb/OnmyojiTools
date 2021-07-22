@@ -1,10 +1,11 @@
 .idea/
 venv/
-tools/__pycache__/
-gui/__pycache__/
-goryou/__pycache__/
 mitama/__pycache__/
-explore/__pycache__/
+gui/__pycache__/
+tools/__pycache__/
 gameLib/__pycache__/
-build/
+explore/__pycache__/
+goryou/__pycache__/
+img/screenshots/
 dist/
+build/

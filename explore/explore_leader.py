@@ -42,9 +42,9 @@ class ExploreLeader(ExploreFight):
         mood3 = ut.Mood()
         scene = self.get_scene()
         if scene == 4:
-            self.log.info('已进入探索，就绪')
+            self.log.info('Đã khám phá và sẵn sàng')
         else:
-            self.log.warning('请检查是否进入探索内，退出')
+            self.log.warning('Vui lòng kiểm tra xem bạn đã vào thăm dò và thoát ra chưa')
             return
 
         while self.run:
@@ -53,7 +53,7 @@ class ExploreLeader(ExploreFight):
                 'img/DUI.png', 'img/YING-BING.png')
             if maxVal_list[0] < 0.8 and maxVal_list[1] > 0.8:
                 # 队长退出，结束
-                self.log.warning('队员已退出，脚本结束')
+                self.log.warning('Thành viên trong nhóm đã thoát, kịch bản kết thúc')
                 self.yys.quit_game()
 
             # 开始打怪
@@ -69,7 +69,7 @@ class ExploreLeader(ExploreFight):
                 elif result == 2:
                     break
                 else:
-                    self.log.info('移动至下一个场景')
+                    self.log.info('Chuyển sang cảnh tiếp theo')
                     self.next_scene()
                     i += 1
 
@@ -81,17 +81,17 @@ class ExploreLeader(ExploreFight):
                     fight_pos = self.yys.find_game_img('img/FIGHT.png')
                 # 攻击怪
                 self.yys.mouse_click_bg(fight_pos)
-                self.log.info('已进入战斗')
+                self.log.info('Đã vào trận')
 
                 # 等待式神准备
                 self.yys.wait_game_img_knn('img/ZHUN-BEI.png', thread=30)
-                self.log.info('式神准备完成')
+                self.log.info('Thức thần đã sẵn sàng')
 
                 # 检查狗粮经验
                 self.check_exp_full()
 
                 # 点击准备，直到进入战斗
-                self.click_until_knn('准备按钮', 'img/ZHUN-BEI.png', *
+                self.click_until_knn('Nút sẵn sàng', 'img/ZHUN-BEI.png', *
                                      TansuoPos.ready_btn, mood1.get1mood()/1000, False, 30)
 
                 # 检查是否打完
@@ -102,13 +102,13 @@ class ExploreLeader(ExploreFight):
                 self.get_reward(mood2, state)
 
             # 退出探索
-            self.log.info('结束本轮探索')
+            self.log.info('Kết thúc vòng khám phá này')
             # 点击退出探索
-            self.click_until_multi('退出按钮', 'img/QUE-REN.png', 'img/TAN-SUO.png', 'img/JUE-XING.png',
+            self.click_until_multi('Nút thoát', 'img/QUE-REN.png', 'img/TAN-SUO.png', 'img/JUE-XING.png',
                                    pos=TansuoPos.quit_btn[0], pos_end=TansuoPos.quit_btn[1], step_time=0.5)
 
             # 点击确认
-            self.click_until('确认按钮', 'img/QUE-REN.png',
+            self.click_until('Nút xác nhận', 'img/QUE-REN.png',
                              *TansuoPos.confirm_btn, 2, False)
 
             # 等待司机退出1s
@@ -118,7 +118,7 @@ class ExploreLeader(ExploreFight):
             # 下一轮自动邀请
             self.yys.wait_game_img('img/QUE-DING.png', self.max_win_time)
             time.sleep(0.5)
-            self.click_until('继续邀请', 'img/QUE-DING.png', *
+            self.click_until('Tiếp tục mời', 'img/QUE-DING.png', *
                              TansuoPos.yaoqing_comfirm, mood3.get1mood()/1000, False)
 
             # 检查游戏次数

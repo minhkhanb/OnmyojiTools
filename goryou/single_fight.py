@@ -18,32 +18,34 @@ class GoryouFight(Fighter):
         mood2 = ut.Mood()
         mood3 = ut.Mood(3)
         while self.run:
-            # 检测上一步是否结算成功，防止因跳蛋打开一瞬间没有检测到而引发的异常
+            # Phát hiện xem quá trình giải quyết có thành công ở bước trước hay không và ngăn chặn các bất thường do máy rung không được phát hiện trong giây lát
             maxVal, maxLoc = self.yys.find_multi_img(
                 'img/SHENG-LI.png', 'img/TIAO-DAN.png', 'img/JIN-BI.png', 'img/JIE-SU.png')
+
             if max(maxVal) > 0.9:
                 self.get_reward(mood3, 1)
 
-            # 在御魂主选单，点击“挑战”按钮, 需要使用“阵容锁定”！
-            self.yys.wait_game_img_knn('img\\TIAO-ZHAN.png',
-                                       self.max_win_time, thread=20)
+            # Nhấp vào nút "Thử thách" trong menu chính của Evo Material, bạn cần sử dụng "khóa đội hình"!
+            self.yys.wait_game_img_knn('img\\CHALLENGE.png', max_time=self.max_win_time)
+
             mood1.moodsleep()
-            self.click_until_knn('挑战按钮', 'img\\TIAO-ZHAN.png',
+            self.click_until_knn('Nút thử thách', 'img\\CHALLENGE.png',
                                  *YuhunPos.tiaozhan_btn, appear=False, thread=20)
 
-            # 检测是否进入战斗
+            logging.info('Check battle')
+            # Kiểm tra xem có tham gia trận chiến hay không
             self.check_battle()
 
-            # 在战斗中，自动点怪
+            # Trong trận chiến, tự động nhấp vào đổ lỗi
             self.click_monster()
 
-            # 检测是否打完
+            # Kiểm tra xem nó đã hoàn thành chưa
             state = self.check_end()
             mood2.moodsleep()
 
-            # 在战斗结算页面
+            # Dàn xếp trận chiến
             self.get_reward(mood3, state)
-            logging.info("回到选择界面")
+            logging.info("Quay lại giao diện lựa chọn")
 
-            # 检查游戏次数
+            # Kiểm tra số lượng trò chơi
             self.check_times()

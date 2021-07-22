@@ -45,8 +45,8 @@ class FighterPassenger(Fighter):
             # 在战斗结算页面
             self.get_reward(mood3, state)
 
-            # 等待下一轮
-            self.log.info('Passenger: 等待下一轮')
+            # Chờ đợi vòng tiếp theo
+            self.log.info('Passenger: Chờ đợi vòng tiếp theo')
             start_time = time.time()
             while time.time() - start_time <= 5 and self.run:
                 # 检测是否回到队伍中

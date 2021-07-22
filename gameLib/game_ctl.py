@@ -27,6 +27,7 @@ class GameControl():
         self.hwnd = hwnd
         self.quit_game_enable = quit_game_enable
         self.debug_enable = False
+        logging.info(str(self.hwnd))
         l1, t1, r1, b1 = win32gui.GetWindowRect(self.hwnd)
         #print(l1,t1, r1,b1)
         l2, t2, r2, b2 = win32gui.GetClientRect(self.hwnd)
@@ -82,7 +83,7 @@ class GameControl():
                     return cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
         except Exception:
             self.init_mem()
-            logging.warning('window_full_shot执行失败')
+            logging.warning('window_full_shot Thực thi không thành công')
             a = traceback.format_exc()
             logging.warning(a)
 
@@ -151,7 +152,7 @@ class GameControl():
                     if abs(r1-r2) <= tolerance and abs(g1-g2) <= tolerance and abs(b1-b2) <= tolerance:
                         return x+region[0][0], y+region[0][1]
                 except Exception:
-                    logging.warning('find_color执行失败')
+                    logging.warning('find_color Thực thi không thành công')
                     a = traceback.format_exc()
                     logging.warning(a)
                     return -1
@@ -201,10 +202,10 @@ class GameControl():
             res = cv2.matchTemplate(
                 img_src, img_template, cv2.TM_CCOEFF_NORMED)
             minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(res)
-            # print(maxLoc)
+            #print(maxLoc)
             return maxVal, maxLoc
         except Exception:
-            logging.warning('find_img执行失败')
+            logging.warning('find_img Thực thi không thành công')
             a = traceback.format_exc()
             logging.warning(a)
             return 0, 0
@@ -238,7 +239,7 @@ class GameControl():
             # print(maxLoc)
             return maxLoc
         except Exception:
-            logging.warning('find_img_knn执行失败')
+            logging.warning('find_img_knn Thực thi không thành công')
             a = traceback.format_exc()
             logging.warning(a)
             return -1
@@ -277,7 +278,7 @@ class GameControl():
                 maxVal_list.append(maxVal)
                 maxLoc_list.append(maxLoc)
             except Exception:
-                logging.warning('find_multi_img执行失败')
+                logging.warning('find_multi_img Thực thi không thành công')
                 a = traceback.format_exc()
                 logging.warning(a)
                 maxVal_list.append(0)
@@ -415,11 +416,11 @@ class GameControl():
 
     def wait_game_img_knn(self, img_path, max_time=100, quit=True, thread=0):
         """
-        等待游戏图像
-            :param img_path: 图片路径
-            :param max_time=60: 超时时间
-            :param quit=True: 超时后是否退出
-            :return: 成功返回坐标，失败返回False
+        Đang chờ hình ảnh trò chơi
+             : param img_path: đường dẫn hình ảnh
+             : param max_time = 60: timeout
+             : param Thoát = Đúng: có thoát sau khi hết thời gian chờ hay không
+             : return: Trả về tọa độ khi thành công, trả về Sai khi thất bại
         """
         self.rejectbounty()
         start_time = time.time()
@@ -428,6 +429,7 @@ class GameControl():
             if maxLoc != (0, 0):
                 return maxLoc
             if max_time > 5:
+                logging.info('continue sleep')
                 time.sleep(1)
             else:
                 time.sleep(0.1)
@@ -475,7 +477,7 @@ class GameControl():
             else:
                 os.system(
                     'adb shell am force-stop com.netease.onmyoji.netease_simulator')
-        logging.info('退出，最后显示已保存至/img/screenshots文件夹')
+        logging.info('Exit and finally show that it has been saved to /img/screenshots folder')
         sys.exit(0)
 
     def takescreenshot(self):
@@ -485,7 +487,7 @@ class GameControl():
         name = time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime())
         img_src_path = 'img/screenshots/%s.png' %(name)
         self.window_full_shot(img_src_path)
-        logging.info('截图已保存至img/screenshots/%s.png' %(name))
+        logging.info('The screenshot has been saved to img/screenshots/%s.png' %(name))
 
     def rejectbounty(self):
         '''
@@ -569,6 +571,12 @@ class GameControl():
         win32gui.ReleaseDC(self.hwnd, self.hwindc)
         win32gui.DeleteObject(self.bmp.GetHandle())
 
+    def get_img(self, pos, pos_end):
+        screenshot = self.window_full_shot()
+        img = cv2.rectangle(screenshot, pos, pos_end, (0, 255, 0), 3)
+        cv2.imshow('img', img)
+        cv2.waitKey(0)
+
 # 测试用
 
 
@@ -578,7 +586,7 @@ def show_img(img):
 
 
 def main():
-    hwnd = win32gui.FindWindow(0, u'阴阳师-网易游戏')
+    hwnd = win32gui.FindWindow(0, u'Onmyoji')
     yys = GameControl(hwnd, 0)
     yys.debug()
 
